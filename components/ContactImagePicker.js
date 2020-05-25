@@ -32,14 +32,6 @@ const ContactImagePicker = props => {
     });
   }
   return (
-    // <View style={styles.imageView}>
-    //   {!pickedImage ? (
-    //      <Text>No image picked yet.</Text>
-    //   ) : (
-    //       <Image style={styles.imageStyle} source={{ uri: pickedImage }} />
-    //     )}
-
-    // </View>
     <View style={styles.imagePicker}>
       <View style={styles.imagePreview}>
         {!pickedImage ? (
@@ -56,14 +48,13 @@ const ContactImagePicker = props => {
 
 const styles = StyleSheet.create({
   imageView: {
-    height: '50%',
-    width: '100%'
+    width:Dimensions.get('window').width
   },
   imagePicker: {
     alignItems: "center"
   },
   imagePreview: {
-    height: 270,
+    height: Dimensions.get('window').height/3,
     justifyContent: "center",
     alignContent: "center",
     borderColor: '#ccc',
@@ -71,8 +62,7 @@ const styles = StyleSheet.create({
   },
   imageStyle: {
     width:Dimensions.get('window').width,
-    height:270
-
+    height: Dimensions.get('window').height/3,
   },
   buttonView:{
     justifyContent:'center',

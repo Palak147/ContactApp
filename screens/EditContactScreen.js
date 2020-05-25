@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useReducer, } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, Keyboard, TextInput, Button, Text, View, KeyboardAvoidingView, ScrollView, Alert } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, Keyboard, TextInput, Button, Text, View, Dimensions, Alert } from 'react-native';
 import { HeaderButtons, Item, HiddenItem } from 'react-navigation-header-buttons';
 import CustomHeaderButton from '../components/HeaderButton';
 import Colors from '../constants/Colors'
@@ -31,14 +31,14 @@ const formReducer = (state, action) => {
             inputValues: updatedValues,
             inputValidities: updatedValidities
         };
-    }else if (action.type === INPUT_BLUR){
+    } else if (action.type === INPUT_BLUR) {
         const updatedTouchedInputs = {
             ...state.touchedInputs,
-            [action.input] : true
+            [action.input]: true
         };
-        return{
+        return {
             ...state,
-            touchedInputs : updatedTouchedInputs
+            touchedInputs: updatedTouchedInputs
         }
     }
     return state;
@@ -65,9 +65,9 @@ const EditContactScreen = props => {
         },
         formIsValid: contact ? true : false,
         touchedInputs: {
-            name:contact ? true:false,
-            mobile:contact ? true:false,
-            landline:contact ? true:false,
+            name: contact ? true : false,
+            mobile: contact ? true : false,
+            landline: contact ? true : false,
         }
     });
 
@@ -151,16 +151,16 @@ const EditContactScreen = props => {
                 <ContactImagePicker style={styles.imageView} imageUri={selectedImage} onImageTaken={imageTakenHandler} />
                 <View style={styles.formView}>
                     <View style={styles.formControl}>
-                            <Text>Name</Text>
+                        <Text>Name</Text>
                         <View style={styles.inputAndErrorView}>
                             <TextInput
                                 style={styles.inputStyle}
                                 value={formState.inputValues.name}
-                                onChangeText={textChangedHandler.bind(this, 'name')} 
+                                onChangeText={textChangedHandler.bind(this, 'name')}
                                 editable={isEditable}
                                 keyboardType='default'
                                 autoCorrect={false}
-                                onBlur={lostFocusHandler.bind(this,'name')}/>
+                                onBlur={lostFocusHandler.bind(this, 'name')} />
                             {!formState.inputValidities.name && formState.touchedInputs.name && <Text style={styles.errorStyle}>Please enter name!</Text>}
                         </View>
                     </View>
@@ -170,10 +170,10 @@ const EditContactScreen = props => {
                             <TextInput
                                 style={styles.inputStyle}
                                 value={formState.inputValues.mobile}
-                                onChangeText={textChangedHandler.bind(this, 'mobile')} 
+                                onChangeText={textChangedHandler.bind(this, 'mobile')}
                                 editable={isEditable}
                                 keyboardType='number-pad'
-                                onBlur={lostFocusHandler.bind(this,'mobile')}
+                                onBlur={lostFocusHandler.bind(this, 'mobile')}
                             />
                             {!formState.inputValidities.mobile && formState.touchedInputs.mobile && <Text style={styles.errorStyle}>Please enter mobile number!</Text>}
 
@@ -185,19 +185,21 @@ const EditContactScreen = props => {
                             <TextInput
                                 style={styles.inputStyle}
                                 value={formState.inputValues.landline}
-                                onChangeText={textChangedHandler.bind(this, 'landline')} 
+                                onChangeText={textChangedHandler.bind(this, 'landline')}
                                 editable={isEditable}
                                 keyboardType='number-pad'
-                                onBlur={lostFocusHandler.bind(this,'landline')} />
+                                onBlur={lostFocusHandler.bind(this, 'landline')} />
                             {!formState.inputValidities.landline && formState.touchedInputs.landline && <Text style={styles.errorStyle}>Please enter landline number!</Text>}
 
                         </View>
-                    </View>
 
+                    </View>
+                  
                 </View>
                 <View style={styles.buttonStyle}>
-                    <Button title="Save" color={Colors.primary} disabled={isSaveDisable} onPress={submitHandler}></Button>
-                </View>
+                        <Button title="Save" color={Colors.primary} disabled={isSaveDisable} onPress={submitHandler}></Button>
+                    </View>
+
                 {/* </ScrollView> */}
 
             </View>
@@ -225,10 +227,12 @@ EditContactScreen.navigationOptions = (navData) => {
 }
 const styles = StyleSheet.create({
     imageView: {
-        height: '40%',
+        height: Dimensions.get('window').height / 3,
+        backgroundColor: 'red'
     },
     formView: {
-        height: '60%',
+        height: Dimensions.get('window').height / 2,
+        //backgroundColor: 'yellow'
     },
     formControl: {
 
@@ -239,10 +243,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 20
     },
     buttonStyle: {
-        flex: 1,
-        justifyContent: 'flex-end',
+        height:Dimensions.get('window').height/6,
         width: '100%',
-        height: '100%',
+        //margin:0,
+        //backgroundColor: 'orange'
     },
     inputStyle: {
         borderWidth: 2,
@@ -257,8 +261,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         width: '80%',
     },
-    labelStyle:{
-        width:'20%'
+    labelStyle: {
+        width: '20%'
     }
 });
 
